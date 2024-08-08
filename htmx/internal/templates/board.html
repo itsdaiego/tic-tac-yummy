@@ -1,0 +1,13 @@
+{{ define "board" }}
+<div class="grid grid-cols-3 gap-0">
+  {{ range $i, $row := .Board }}
+  {{ range $j, $cell := $row }}
+  <div class="cell w-44 h-44 flex justify-center items-center border-2 border-gray-300 bg-white cursor-pointer"
+       data-row="{{ $i }}"
+       data-col="{{ $j }}">
+  </div>
+  {{ end }}
+  {{ end }}
+</div>
+{{ end }}
+

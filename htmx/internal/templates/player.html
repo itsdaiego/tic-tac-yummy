@@ -1,0 +1,17 @@
+{{ define "player" }}
+<div class="grid grid-rows-2 gap-2">
+  <div class="flex flex-col justify-center items-center p-4 text-black">
+    <div class="text-2xl font-semibold text-black" id="data-room-id">Room: {{ .RoomID }}</div>
+  </div>
+  <div id="player-list-container" class="flex flex-col justify-center items-center p-4 text-black">
+    <div class="text-lg font-semibold"></div>
+  </div>
+  <button id="list-players" 
+          class="hidden" 
+          hx-get="/list-players?room_id={{ .RoomID }}" 
+          hx-trigger="click" 
+          hx-target="#player-list-container" 
+          hx-swap="innerHTML">
+  </button>
+</div>
+{{ end }}

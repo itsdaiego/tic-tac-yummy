@@ -1,18 +1,24 @@
 package main
 
 import (
-    "fmt"
-    "log"
-    "net/http"
+	"fmt"
+	"log"
+	"net/http"
 
-    "tic-tac-yummy/internal/handlers"
+	"tic-tac-yummy/internal/handlers"
+	"github.com/gorilla/mux"
 )
 
 func main() {
-    http.HandleFunc("/", handlers.HomeHandler)
-    http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	r := mux.NewRouter()
 
-    fmt.Println("Server is running at http://localhost:8080")
-    log.Fatal(http.ListenAndServe(":8080", nil))
+	r.HandleFunc("/room/{roomId}", handlers.HomeHandler).Methods("GET")
+	r.HandleFunc("/ws", handlers.WSHandler)
+	r.HandleFunc("/move", handlers.MoveHandler)
+  r.HandleFunc("/list-players", handlers.ListPlayerHandler).Methods("GET")
+
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+
+	fmt.Println("Server is running at port: 8080")
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
-
