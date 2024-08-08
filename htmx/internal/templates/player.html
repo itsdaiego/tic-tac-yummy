@@ -1,0 +1,14 @@
+{{ define "player" }}
+<div class="grid grid-rows-2 gap-2">
+  <div class="flex flex-col justify-center items-center p-4 text-black">
+    <div class="text-2xl font-semibold text-black" id="room-id">Room: {{ .RoomID }}</div>
+  </div>
+  <div 
+    class="flex flex-col justify-center items-center p-4 text-black"
+    hx-get="/room/{{ .RoomID }}"
+    hx-swap="innerHTML"
+  >
+    <div class="text-lg font-semibold">User 0</div>
+  </div>
+</div>
+{{ end }}

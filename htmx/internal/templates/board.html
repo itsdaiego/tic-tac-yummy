@@ -1,0 +1,23 @@
+{{ define "board" }}
+<div class="grid grid-cols-3 gap-0">
+  {{ range $i, $row := .Board }}
+  {{ range $j, $cell := $row }}
+  <div class="cell w-44 h-44 flex justify-center items-center border-2 border-gray-300 bg-white cursor-pointer"
+       data-row="{{ $i }}"
+       data-col="{{ $j }}"
+       hx-post="/move"
+       hx-vals='{"row": {{$i}}, "col": {{$j}}}'
+       hx-trigger="click"
+       hx-target="this"
+       hx-swap="outerHTML">
+    {{ if eq $cell "X" }}
+      <div class="w-32 h-32 flex justify-center items-center">
+        <div class="text-red-500 text-7xl">X</div>
+      </div>
+    {{ end }}
+  </div>
+  {{ end }}
+  {{ end }}
+</div>
+{{ end }}
+
